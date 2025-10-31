@@ -3,7 +3,38 @@ import Layout from "../components/Layout.astro";
 ---
 
 <Layout title="Home">
-	<h1>Tick, tock...</h1>
-	<div>Track your time here!</div>
-	<a href="./stopwatch">Go to stopwatch!</a>
+	<div
+		class="h-screen flex flex-col items-center justify-center font-['Fira'] bg-light text-dark"
+	>
+		<div class="text-center">
+			<h1 class="text-2xl sm:text-3xl md:text-4xl mb-4 text-rose italic">
+				Tick, tock...
+			</h1>
+			<div class="text-sm md:text-xl">
+				<span>It's just</span>
+				<a
+					href="https://open.spotify.com/album/6lauK4mNENDUMSoekDVDNG?si=rFrfFbwEQUimmX__8xlmIA"
+					target="_blank"
+					class="hover:text-aquamarine hover:underline">a matter of time!</a
+				>
+				<span> 🕰️</span>
+			</div>
+		</div>
+		<div class="mt-6 mb-10">
+			<button
+				onclick={`window.location.href='./stopwatch'`}
+				class="p-2 w-30 h-10 bg-rose rounded-xl border-pink border-2
+          hover:bg-pink hover:border-rose hover:cursor-pointer
+          active:bg-pink active:border-eggplant"
+				>Stopwatch</button
+			>
+		</div>
+		<div class="text-rose text-xs md:text-sm">
+			Made with ♡ by <a
+				href="https://github.com/angelazheng96"
+				target="_blank"
+				class="hover:text-lilac hover:underline">Angela Zheng</a
+			>
+		</div>
+	</div>
 </Layout>
