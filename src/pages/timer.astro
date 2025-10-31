@@ -22,6 +22,9 @@ import Layout from "../components/Layout.astro";
         type="number"
         value="00"
         onfocus="this.select()"
+        onblur="setTime(getTimerInput())"
+        onkeydown="if (event.key === '-' || event.key === '+' || event.key === '.' || event.key === 'e') event.preventDefault();"
+        inputmode="numeric"
         maxlength="2"
         class="w-[2ch]
           [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
@@ -32,6 +35,9 @@ import Layout from "../components/Layout.astro";
         type="number"
         value="00"
         onfocus="this.select()"
+        onblur="setTime(getTimerInput())"
+        onkeydown="if (event.key === '-' || event.key === '+' || event.key === '.' || event.key === 'e') event.preventDefault();"
+        inputmode="numeric"
         maxlength="2"
         class="w-[2ch]
           [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
@@ -42,6 +48,9 @@ import Layout from "../components/Layout.astro";
         type="number"
         value="00"
         onfocus="this.select()"
+        onblur="setTime(getTimerInput())"
+        onkeydown="if (event.key === '-' || event.key === '+' || event.key === '.' || event.key === 'e') event.preventDefault();"
+        inputmode="numeric"
         maxlength="2"
         class="w-[2ch]
           [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
@@ -139,7 +148,7 @@ import Layout from "../components/Layout.astro";
     // Time elapsed since start, in seconds
     timeElapsed = Number(Math.floor((currentTime - startTime) / 1000));
 
-    console.log(Number(timerInput - timeElapsed));
+    // Update timer value
     setTime(Number(timerInput - timeElapsed));
   }
 
