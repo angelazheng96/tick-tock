@@ -67,11 +67,14 @@ import Layout from "../components/Layout.astro";
       >
       <button
         id="reset"
+        hidden="true"
         class="p-2 w-20 h-10 bg-rose rounded-xl border-pink border-2
           hover:bg-pink hover:border-rose hover:cursor-pointer
           active:bg-pink active:border-eggplant"
         >Reset</button
       >
+      <audio src="/audio/timer-finished.mp3" id="timerAudio" preload="auto"
+      ></audio>
     </div>
   </div>
 </Layout>
@@ -83,6 +86,8 @@ import Layout from "../components/Layout.astro";
 
   const startPauseBtn = document.getElementById("startPause");
   const resetBtn = document.getElementById("reset");
+
+  const timerAudio = document.getElementById("timerAudio");
 
   let timerRunning = false;
   let timerInput;
@@ -102,19 +107,24 @@ import Layout from "../components/Layout.astro";
     // If timer has been started
     if (timerRunning) {
       timerInput = getTimerInput();
-      console.log(timerInput);
 
-      // Get current time
-      timeElapsed = 0;
-      currentTime = Date.now();
-      startTime = currentTime;
+      // Check that input is not 0
+      if (timerInput != 0) {
+        // Get current time
+        timeElapsed = 0;
+        currentTime = Date.now();
+        startTime = currentTime;
 
-      startPauseBtn.textContent = "Pause";
+        startPauseBtn.textContent = "Pause";
+        resetBtn.hidden = false;
 
-      // Update timer every 0.2 seconds
-      timerInterval = setInterval(() => {
-        updateTimer();
-      }, 200);
+        // Update timer every 0.2 seconds
+        timerInterval = setInterval(() => {
+          updateTimer();
+        }, 200);
+      } else {
+        timerRunning = false;
+      }
     }
 
     // If timer has been paused
@@ -153,6 +163,11 @@ import Layout from "../components/Layout.astro";
 
     // Update timer value
     setTime(Number(timerInput - timeElapsed));
+
+    // Check if timer has finished
+    if (getTimerInput() == 0) {
+      timerFinished();
+    }
   }
 
   // Resets timer
@@ -163,7 +178,31 @@ import Layout from "../components/Layout.astro";
 
     // Set timer value back to start
     setTime(timerInput);
+
+    // Show start/pause button
     startPauseBtn.textContent = "Start";
+    startPauseBtn.hidden = false;
+
+    // Hide reset button
+    resetBtn.hidden = true;
+
+    // Stop audio playing
+    timerAudio.pause();
+    timerAudio.currentTime = 0;
+  }
+
+  // Timer has finished
+  function timerFinished() {
+    // Stop timer elapsing
+    clearInterval(timerInterval);
+    timerRunning = false;
+
+    // Hide start/pause button
+    startPauseBtn.hidden = true;
+
+    // Play audio
+    timerAudio.currentTime = 0;
+    timerAudio.play();
   }
 
   // Play clock ticking sound when hovering over "Tick, tock..."
@@ -171,13 +210,11 @@ import Layout from "../components/Layout.astro";
   const hoverText = document.getElementById("hoverText");
 
   hoverText.addEventListener("mouseover", () => {
-    console.log("mouse over");
     hoverAudio.currentTime = 0;
     hoverAudio.play();
   });
 
   hoverText.addEventListener("mouseout", () => {
-    console.log("mouse out");
     hoverAudio.pause();
     hoverAudio.currentTime = 0;
   });
