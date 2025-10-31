@@ -12,7 +12,9 @@ import Layout from "../components/Layout.astro";
       Stopwatch
     </h1>
     <div class="text-sm text-rose">
-      <span class="italic">Tick, tock...</span>
+      <span id="hoverText" class="italic">Tick, tock...</span>
+      <audio src="/audio/slow-clock-ticking.mp3" id="hoverAudio" preload="auto"
+      ></audio>
       <a href="./" class="hover:text-lilac hover:underline">go back home!</a>
     </div>
 
@@ -107,5 +109,21 @@ import Layout from "../components/Layout.astro";
 
       startPauseBtn.textContent = "Start";
     }
+
+    // Play clock ticking sound when hovering over "Tick, tock..."
+    const hoverAudio = document.getElementById("hoverAudio");
+    const hoverText = document.getElementById("hoverText");
+
+    hoverText.addEventListener("mouseover", () => {
+      console.log("mouse over");
+      hoverAudio.currentTime = 0;
+      hoverAudio.play();
+    });
+
+    hoverText.addEventListener("mouseout", () => {
+      console.log("mouse out");
+      hoverAudio.pause();
+      hoverAudio.currentTime = 0;
+    });
   </script>
 </Layout>
