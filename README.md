@@ -1,6 +1,6 @@
 # Tick, Tock...
 
-A simple stopwatch and timer website. For years, I've been looking for a stopwatch/timer that is (1) simple, (2) pretty, and (3) ad-free. Then, I remembered that I can just make one myself!'
+A simple stopwatch and timer website. For years, I've been looking for a stopwatch/timer that is (1) simple, (2) pretty, and (3) ad-free. Then, I remembered that I can just make one myself!
 
 ## Development
 Built with Astro, JavaScript, and Tailwind CSS in around 4 hours.
