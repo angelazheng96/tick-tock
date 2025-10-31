@@ -16,7 +16,9 @@ import Layout from "../components/Layout.astro";
       <a href="./" class="hover:text-lilac hover:underline">go back home!</a>
     </div>
 
-    <div class="my-10 text-6xl sm:text-8xl md:text-9xl text-center flex gap-0">
+    <div
+      class="my-10 text-6xl sm:text-8xl md:text-9xl text-center flex items-center"
+    >
       <input
         id="hours"
         type="number"
@@ -26,10 +28,13 @@ import Layout from "../components/Layout.astro";
         onkeydown="if (event.key === '-' || event.key === '+' || event.key === '.' || event.key === 'e') event.preventDefault();"
         inputmode="numeric"
         maxlength="2"
-        class="w-[2ch]
+        class="inline-flex items-center justify-center w-[2ch] text-center leading-[1em] h-[1em] py-0
           [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
       />
-      <span class="">:</span>
+      <span
+        class="inline-flex items-center justify-center px-2 pb-4 leading-[1em] h-[1em]"
+        >:</span
+      >
       <input
         id="minutes"
         type="number"
@@ -39,10 +44,13 @@ import Layout from "../components/Layout.astro";
         onkeydown="if (event.key === '-' || event.key === '+' || event.key === '.' || event.key === 'e') event.preventDefault();"
         inputmode="numeric"
         maxlength="2"
-        class="w-[2ch]
+        class="inline-flex items-center justify-center w-[2ch] text-center leading-[1em] h-[1em] py-0
           [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
       />
-      <span>:</span>
+      <span
+        class="inline-flex items-center justify-center px-2 pb-4 leading-[1em] h-[1em]"
+        >:</span
+      >
       <input
         id="seconds"
         type="number"
@@ -52,7 +60,7 @@ import Layout from "../components/Layout.astro";
         onkeydown="if (event.key === '-' || event.key === '+' || event.key === '.' || event.key === 'e') event.preventDefault();"
         inputmode="numeric"
         maxlength="2"
-        class="w-[2ch]
+        class="inline-flex items-center justify-center w-[2ch] text-center leading-[1em] h-[1em] py-0
           [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
       />
     </div>
