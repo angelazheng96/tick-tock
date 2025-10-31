@@ -1,43 +1,13 @@
-# Astro Starter Kit: Minimal
+# Tick, Tock...
 
-```sh
-npm create astro@latest -- --template minimal
-```
+A simple stopwatch and timer website. For years, I've been looking for a stopwatch/timer that is (1) simple, (2) pretty, and (3) ad-free. Then, I remembered that I can just make one myself!'
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Development
+Built with Astro, JavaScript, and Tailwind CSS in around 4 hours.
 
-## 🚀 Project Structure
+Now that I'm familiar with both of these, it was a lot less painful to get started. I struggled mostly with the timer code logic and how to best make the timer input feel intuitive and aesthetic at the same time.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Deployment
+Check it out [here](https://tick-tock.angelazheng.ca/)!
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+[![Athena Award Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Faward.athena.hackclub.com%2Fapi%2Fbadge)](https://award.athena.hackclub.com?utm_source=readme)
