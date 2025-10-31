@@ -16,7 +16,38 @@ import Layout from "../components/Layout.astro";
       <a href="./" class="hover:text-lilac hover:underline">go back home!</a>
     </div>
 
-    <div id="time" class="text-6xl sm:text-8xl md:text-9xl my-10">00:00:00</div>
+    <div class="my-10 text-6xl sm:text-8xl md:text-9xl text-center flex gap-0">
+      <input
+        id="hours"
+        type="number"
+        value="00"
+        onfocus="this.select()"
+        maxlength="2"
+        class="w-[2ch]
+          [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+      />
+      <span class="">:</span>
+      <input
+        id="minutes"
+        type="number"
+        value="00"
+        onfocus="this.select()"
+        maxlength="2"
+        class="w-[2ch]
+          [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+      />
+      <span>:</span>
+      <input
+        id="seconds"
+        type="number"
+        value="00"
+        onfocus="this.select()"
+        maxlength="2"
+        class="w-[2ch]
+          [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+      />
+    </div>
+
     <div>
       <button
         id="startPause"
@@ -34,94 +65,97 @@ import Layout from "../components/Layout.astro";
       >
     </div>
   </div>
-
-  <script is:inline>
-    const timeDisplay = document.getElementById("time");
-
-    // Start and pause stopwatch
-    const startPauseBtn = document.getElementById("startPause");
-    startPauseBtn?.addEventListener("click", toggleTimer);
-
-    // Reset stopwatch
-    const resetBtn = document.getElementById("reset");
-    resetBtn?.addEventListener("click", resetTimer);
-
-    let timerRunning = false;
-    let timeElapsed = 0;
-
-    let currentTime;
-    let startTime;
-
-    let timerInterval;
-
-    // Toggle timer between start or pause
-    function toggleTimer() {
-      timerRunning = !timerRunning;
-
-      // If timer is starting
-      if (timerRunning) {
-        timeElapsed = 0;
-        startTime = Date.now();
-        currentTime = startTime;
-
-        // Toggle start and pause button text
-        startPauseBtn.textContent = "Pause";
-
-        // Update timer every 0.2 seconds
-        timerInterval = setInterval(() => {
-          updateTimer();
-        }, 200);
-      }
-
-      // Otherwise, timer is pausing
-      else {
-        clearInterval(timerInterval);
-        startPauseBtn.textContent = "Resume";
-      }
-    }
-
-    // Update the time display with the elapsed time
-    function updateTimer() {
-      // Compare current time to the stopwatch start time
-      currentTime = Date.now();
-      timeElapsed = Math.floor((currentTime - startTime) / 1000);
-
-      // Update time display
-      document.getElementById("time").textContent = formatTime(timeElapsed);
-    }
-
-    // Format time in seconds into HH:MM:SS
-    function formatTime(seconds) {
-      const hrs = String(Math.floor(seconds / 3600)).padStart(2, "0");
-      const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
-      const secs = String(seconds % 60).padStart(2, "0");
-      return `${hrs}:${mins}:${secs}`;
-    }
-
-    // Reset timer to 0
-    function resetTimer() {
-      clearInterval(timerInterval);
-      timerRunning = false;
-      timeElapsed = 0;
-      document.getElementById("time").textContent = "00:00:00";
-
-      startPauseBtn.textContent = "Start";
-    }
-
-    // Play clock ticking sound when hovering over "Tick, tock..."
-    const hoverAudio = document.getElementById("hoverAudio");
-    const hoverText = document.getElementById("hoverText");
-
-    hoverText.addEventListener("mouseover", () => {
-      console.log("mouse over");
-      hoverAudio.currentTime = 0;
-      hoverAudio.play();
-    });
-
-    hoverText.addEventListener("mouseout", () => {
-      console.log("mouse out");
-      hoverAudio.pause();
-      hoverAudio.currentTime = 0;
-    });
-  </script>
 </Layout>
+
+<script is:inline>
+  const hoursInput = document.getElementById("hours");
+  const minutesInput = document.getElementById("minutes");
+  const secondsInput = document.getElementById("seconds");
+
+  const startPauseBtn = document.getElementById("startPause");
+  const resetBtn = document.getElementById("reset");
+
+  let timerRunning = false;
+  let timerInput;
+  let timerInterval;
+  let timeElapsed, currentTime, startTime;
+
+  // Start or pause timer
+  startPauseBtn?.addEventListener("click", toggleTimer);
+
+  // Toggle timer state
+  function toggleTimer() {
+    timerRunning = !timerRunning;
+
+    // If timer has been started
+    if (timerRunning) {
+      timerInput = getTimerInput();
+      console.log(timerInput);
+
+      // Get current time
+      timeElapsed = 0;
+      currentTime = Date.now();
+      startTime = currentTime;
+
+      startPauseBtn.textContent = "Pause";
+
+      // Update timer every 0.2 seconds
+      timerInterval = setInterval(() => {
+        updateTimer();
+      }, 200);
+    }
+
+    // If timer has been paused
+    else {
+      clearInterval(timerInterval);
+      startPauseBtn.textContent = "Resume";
+    }
+  }
+
+  // Takes user input and converts into seconds
+  function getTimerInput() {
+    return (
+      Number(hoursInput.value) * 3600 +
+      Number(minutesInput.value) * 60 +
+      Number(secondsInput.value)
+    );
+  }
+
+  // Puts the time argument (given in seconds) into the time element as HH:MM:SS
+  function setTime(time) {
+    hoursInput.value = String(Math.floor(time / 3600)).padStart(2, "0");
+    minutesInput.value = String(Math.floor((time % 3600) / 60)).padStart(
+      2,
+      "0",
+    );
+    secondsInput.value = String(time % 60).padStart(2, "0");
+  }
+
+  // Updates timer
+  function updateTimer() {
+    // Compare current time to the timer start time
+    currentTime = Date.now();
+
+    // Time elapsed since start, in seconds
+    timeElapsed = Number(Math.floor((currentTime - startTime) / 1000));
+
+    console.log(Number(timerInput - timeElapsed));
+    setTime(Number(timerInput - timeElapsed));
+  }
+
+  // Play clock ticking sound when hovering over "Tick, tock..."
+  const hoverAudio = document.getElementById("hoverAudio");
+  const hoverText = document.getElementById("hoverText");
+
+  hoverText.addEventListener("mouseover", () => {
+    console.log("mouse over");
+    hoverAudio.currentTime = 0;
+    hoverAudio.play();
+  });
+
+  hoverText.addEventListener("mouseout", () => {
+    console.log("mouse out");
+    hoverAudio.pause();
+    hoverAudio.currentTime = 0;
+  });
+</script>
