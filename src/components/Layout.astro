@@ -12,7 +12,9 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title} | Tick Tock</title>
   </head>
-  <body>
+  <body
+    class="font-['Fira'] bg-light text-dark selection:bg-lilac selection:text-light"
+  >
     <slot />
   </body>
 </html>
