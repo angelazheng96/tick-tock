@@ -92,6 +92,9 @@ import Layout from "../components/Layout.astro";
   // Start or pause timer
   startPauseBtn?.addEventListener("click", toggleTimer);
 
+  // Reset timer
+  resetBtn?.addEventListener("click", resetTimer);
+
   // Toggle timer state
   function toggleTimer() {
     timerRunning = !timerRunning;
@@ -150,6 +153,17 @@ import Layout from "../components/Layout.astro";
 
     // Update timer value
     setTime(Number(timerInput - timeElapsed));
+  }
+
+  // Resets timer
+  function resetTimer() {
+    // Stop timer elapsing
+    clearInterval(timerInterval);
+    timerRunning = false;
+
+    // Set timer value back to start
+    setTime(timerInput);
+    startPauseBtn.textContent = "Start";
   }
 
   // Play clock ticking sound when hovering over "Tick, tock..."
