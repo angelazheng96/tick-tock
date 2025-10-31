@@ -50,6 +50,7 @@ import Layout from "../components/Layout.astro";
 
     let timerRunning = false;
     let timeElapsed = 0;
+    let startSeconds = 0;
 
     let currentTime;
     let startTime;
@@ -62,6 +63,8 @@ import Layout from "../components/Layout.astro";
 
       // If timer is starting
       if (timerRunning) {
+        startSeconds += timeElapsed;
+
         timeElapsed = 0;
         startTime = Date.now();
         currentTime = startTime;
@@ -88,8 +91,10 @@ import Layout from "../components/Layout.astro";
       currentTime = Date.now();
       timeElapsed = Math.floor((currentTime - startTime) / 1000);
 
+      console.log(timeElapsed);
+
       // Update time display and tab title
-      let formattedTime = formatTime(timeElapsed);
+      let formattedTime = formatTime(startSeconds + timeElapsed);
       document.getElementById("time").textContent = formattedTime;
       document.title = `${formattedTime} | Tick Tock`;
     }
@@ -107,6 +112,8 @@ import Layout from "../components/Layout.astro";
       clearInterval(timerInterval);
       timerRunning = false;
       timeElapsed = 0;
+      startSeconds = 0;
+
       document.getElementById("time").textContent = "00:00:00";
       document.title = "Stopwatch | Tick Tock";
 
