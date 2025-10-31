@@ -5,11 +5,13 @@ import Layout from "../components/Layout.astro";
 ---
 
 <Layout title="Stopwatch">
-  <a href="./">Go back home!</a>
-  <div>
+  <div class="h-screen flex flex-col items-center justify-center font-['Fira']">
+    <a href="./" class="">Go back home!</a>
     <div id="time" class="text-5xl">00:00:00</div>
-    <button id="startPause">Start</button>
-    <button id="reset">Reset</button>
+    <div>
+      <button id="startPause">Start</button>
+      <button id="reset">Reset</button>
+    </div>
   </div>
 
   <script is:inline>
