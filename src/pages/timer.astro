@@ -145,12 +145,15 @@ import Layout from "../components/Layout.astro";
 
   // Puts the time argument (given in seconds) into the time element as HH:MM:SS
   function setTime(time) {
-    hoursInput.value = String(Math.floor(time / 3600)).padStart(2, "0");
-    minutesInput.value = String(Math.floor((time % 3600) / 60)).padStart(
-      2,
-      "0",
-    );
-    secondsInput.value = String(time % 60).padStart(2, "0");
+    let hoursValue = String(Math.floor(time / 3600)).padStart(2, "0");
+    let minutesValue = String(Math.floor((time % 3600) / 60)).padStart(2, "0");
+    let secondsValue = String(time % 60).padStart(2, "0");
+
+    hoursInput.value = hoursValue;
+    minutesInput.value = minutesValue;
+    secondsInput.value = secondsValue;
+
+    document.title = `${hoursValue}:${minutesValue}:${secondsValue} | Tick Tock`;
   }
 
   // Updates timer
@@ -186,6 +189,9 @@ import Layout from "../components/Layout.astro";
     // Hide reset button
     resetBtn.hidden = true;
 
+    // Reset tab title
+    document.title = "Timer | Tick Tock";
+
     // Stop audio playing
     timerAudio.pause();
     timerAudio.currentTime = 0;
@@ -199,6 +205,9 @@ import Layout from "../components/Layout.astro";
 
     // Hide start/pause button
     startPauseBtn.hidden = true;
+
+    // Set tab title
+    document.title = "TIMER FINISHED! | Tick Tock";
 
     // Play audio
     timerAudio.currentTime = 0;

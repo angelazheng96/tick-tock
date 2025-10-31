@@ -88,8 +88,10 @@ import Layout from "../components/Layout.astro";
       currentTime = Date.now();
       timeElapsed = Math.floor((currentTime - startTime) / 1000);
 
-      // Update time display
-      document.getElementById("time").textContent = formatTime(timeElapsed);
+      // Update time display and tab title
+      let formattedTime = formatTime(timeElapsed);
+      document.getElementById("time").textContent = formattedTime;
+      document.title = `${formattedTime} | Tick Tock`;
     }
 
     // Format time in seconds into HH:MM:SS
@@ -106,6 +108,7 @@ import Layout from "../components/Layout.astro";
       timerRunning = false;
       timeElapsed = 0;
       document.getElementById("time").textContent = "00:00:00";
+      document.title = "Stopwatch | Tick Tock";
 
       startPauseBtn.textContent = "Start";
     }
