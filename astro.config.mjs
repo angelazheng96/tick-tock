@@ -7,5 +7,5 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  site: 'tick-tock.angelazheng.ca'
+  site: 'https://tick-tock.angelazheng.ca'
 });
