@@ -96,7 +96,8 @@ import Layout from "../components/Layout.astro";
   const timerAudio = document.getElementById("timerAudio");
 
   let timerRunning = false;
-  let timerInput;
+  let timerPaused = false;
+  let originalTimerInput, timerInput;
   let timerInterval;
   let timeElapsed, currentTime, startTime;
 
@@ -113,6 +114,11 @@ import Layout from "../components/Layout.astro";
     // If timer has been started
     if (timerRunning) {
       timerInput = getTimerInput();
+
+      // If timer was not just paused, then store this as original input
+      if (!timerPaused) {
+        originalTimerInput = timerInput;
+      }
 
       // Check that input is not 0
       if (timerInput != 0) {
@@ -137,6 +143,8 @@ import Layout from "../components/Layout.astro";
     else {
       clearInterval(timerInterval);
       startPauseBtn.textContent = "Resume";
+
+      timerPaused = true;
     }
   }
 
@@ -186,7 +194,8 @@ import Layout from "../components/Layout.astro";
     timerRunning = false;
 
     // Set timer value back to start
-    setTime(timerInput);
+    setTime(originalTimerInput);
+    timerPaused = false;
 
     // Show start/pause button
     startPauseBtn.textContent = "Start";
