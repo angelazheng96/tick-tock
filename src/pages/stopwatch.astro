@@ -8,16 +8,20 @@ import Layout from "../components/Layout.astro";
   <a href="./">Go back home!</a>
   <div>
     <div id="time" class="text-5xl">00:00:00</div>
-    <button id="startPause">Start/Pause</button>
+    <button id="startPause">Start</button>
     <button id="reset">Reset</button>
   </div>
 
   <script is:inline>
     const timeDisplay = document.getElementById("time");
 
-    // Add event listener to button click
+    // Start and pause stopwatch
     const startPauseBtn = document.getElementById("startPause");
     startPauseBtn?.addEventListener("click", toggleTimer);
+
+    // Reset stopwatch
+    const resetBtn = document.getElementById("reset");
+    resetBtn?.addEventListener("click", resetTimer);
 
     let timerRunning = false;
     let timeElapsed = 0;
@@ -31,24 +35,35 @@ import Layout from "../components/Layout.astro";
     function toggleTimer() {
       timerRunning = !timerRunning;
 
+      // If timer is starting
       if (timerRunning) {
         timeElapsed = 0;
         startTime = Date.now();
         currentTime = startTime;
 
+        // Toggle start and pause button text
+        startPauseBtn.textContent = "Pause";
+
+        // Update timer every 0.2 seconds
         timerInterval = setInterval(() => {
           updateTimer();
         }, 200);
-      } else {
+      }
+
+      // Otherwise, timer is pausing
+      else {
         clearInterval(timerInterval);
+        startPauseBtn.textContent = "Start";
       }
     }
 
     // Update the time display with the elapsed time
     function updateTimer() {
+      // Compare current time to the stopwatch start time
       currentTime = Date.now();
       timeElapsed = Math.floor((currentTime - startTime) / 1000);
 
+      // Update time display
       document.getElementById("time").textContent = formatTime(timeElapsed);
     }
 
@@ -58,6 +73,16 @@ import Layout from "../components/Layout.astro";
       const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
       const secs = String(seconds % 60).padStart(2, "0");
       return `${hrs}:${mins}:${secs}`;
+    }
+
+    // Reset timer to 0
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timerRunning = false;
+      timeElapsed = 0;
+      document.getElementById("time").textContent = "00:00:00";
+
+      startPauseBtn.textContent = "Start";
     }
   </script>
 </Layout>
