@@ -7,3 +7,15 @@
   font-style: normal;
   font-display: swap;
 }
+
+@theme {
+  --color-aquamarine: #A3D2CA;
+  --color-teal: #50828F;
+  --color-lilac: #C4A5D3;
+  --color-eggplant: #5A2C70;
+  --color-rose: #A66C96;
+  --color-pink: #dfb2d1;
+
+  --color-dark: #272527;
+  --color-light: #F9F1F8;
+}
