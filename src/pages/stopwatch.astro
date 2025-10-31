@@ -1,0 +1,63 @@
+---
+import "../styles/global.css";
+
+import Layout from "../components/Layout.astro";
+---
+
+<Layout title="Stopwatch">
+  <a href="./">Go back home!</a>
+  <div>
+    <div id="time" class="text-5xl">00:00:00</div>
+    <button id="startPause">Start/Pause</button>
+    <button id="reset">Reset</button>
+  </div>
+
+  <script is:inline>
+    const timeDisplay = document.getElementById("time");
+
+    // Add event listener to button click
+    const startPauseBtn = document.getElementById("startPause");
+    startPauseBtn?.addEventListener("click", toggleTimer);
+
+    let timerRunning = false;
+    let timeElapsed = 0;
+
+    let currentTime;
+    let startTime;
+
+    let timerInterval;
+
+    // Toggle timer between start or pause
+    function toggleTimer() {
+      timerRunning = !timerRunning;
+
+      if (timerRunning) {
+        timeElapsed = 0;
+        startTime = Date.now();
+        currentTime = startTime;
+
+        timerInterval = setInterval(() => {
+          updateTimer();
+        }, 200);
+      } else {
+        clearInterval(timerInterval);
+      }
+    }
+
+    // Update the time display with the elapsed time
+    function updateTimer() {
+      currentTime = Date.now();
+      timeElapsed = Math.floor((currentTime - startTime) / 1000);
+
+      document.getElementById("time").textContent = formatTime(timeElapsed);
+    }
+
+    // Format time in seconds into HH:MM:SS
+    function formatTime(seconds) {
+      const hrs = String(Math.floor(seconds / 3600)).padStart(2, "0");
+      const mins = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
+      const secs = String(seconds % 60).padStart(2, "0");
+      return `${hrs}:${mins}:${secs}`;
+    }
+  </script>
+</Layout>
