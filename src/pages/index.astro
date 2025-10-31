@@ -7,7 +7,7 @@ import Layout from "../components/Layout.astro";
 		class="h-screen flex flex-col items-center justify-center font-['Fira'] bg-light text-dark"
 	>
 		<div class="text-center">
-			<h1 class="text-2xl sm:text-3xl md:text-4xl mb-4 text-rose italic">
+			<h1 class="text-eggplant text-2xl sm:text-3xl md:text-4xl mb-4 italic">
 				Tick, tock...
 			</h1>
 			<div class="text-sm md:text-xl">
@@ -27,6 +27,13 @@ import Layout from "../components/Layout.astro";
           hover:bg-pink hover:border-rose hover:cursor-pointer
           active:bg-pink active:border-eggplant"
 				>Stopwatch</button
+			>
+			<button
+				onclick={`window.location.href='./timer'`}
+				class="p-2 w-30 h-10 bg-rose rounded-xl border-pink border-2
+          hover:bg-pink hover:border-rose hover:cursor-pointer
+          active:bg-pink active:border-eggplant"
+				>Timer</button
 			>
 		</div>
 		<div class="text-rose text-xs md:text-sm">
